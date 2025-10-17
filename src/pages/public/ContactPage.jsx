@@ -11,7 +11,7 @@ const ContactPage = () => {
         email: "",
         message: ""
     });
-
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
@@ -43,22 +43,24 @@ const ContactPage = () => {
 
         if (Object.keys(formErrors).length === 0) {
             try {
-                const res = await axios.post(`${API_BASE_URL}/api/contact`, formData);
+                setLoading(true);
+                const res = await axios.post(`${API_BASE_URL}/contact`, formData);
                 toast.success(res.data.message);
                 setFormData({ name: "", email: "", message: "" });
 
             } catch (err) {
                 toast.error(err.response?.data?.error || "Something went wrong");
+
+            } finally {
+                setLoading(false);
             }
-        } else {
-            console.error("Enter right information");
         }
     };
 
     return (
         <Container className="my-5">
-            <h2 className="text-center mb-4 fw-bold" style={{ color: "#0d6efd" }}>Contact Us</h2>
-            
+            <h2 className="text-center mb-4 fw-bold" style={{ color: "#337dd5" }}>Contact Us</h2>
+
             <Row className="g-4">
                 <Col md={6}>
                     <Card className="shadow-sm p-4 border-0">
@@ -93,7 +95,7 @@ const ContactPage = () => {
                                 <Form.Label className="fw-semibold">Message:</Form.Label>
                                 <Form.Control
                                     as="textarea"
-                                    rows={4}
+                                    rows={6}
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
@@ -103,8 +105,8 @@ const ContactPage = () => {
                                 <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" className="w-100 fw-bold">
-                                Send Message
+                            <Button variant="primary" type="submit" className="w-100 fw-bold" disabled={loading}>
+                                {loading ? "Sending..." : "Send Message"}
                             </Button>
                         </Form>
                     </Card>

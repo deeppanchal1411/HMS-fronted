@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navbar, Container, Nav, Dropdown, Image, Modal, Form, Button } from "react-bootstrap";
-import { FaBell, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
@@ -46,7 +46,7 @@ const PatientNavbar = ({ user, setUser }) => {
         else if (passwordData.newPassword.length < 6) errors.newPassword = "Password must be at least 6 characters";
         setPasswordErrors(errors);
         return Object.keys(errors).length === 0;
-    };  
+    };
 
     useEffect(() => {
         if (showEditModal && user) {
@@ -126,6 +126,7 @@ const PatientNavbar = ({ user, setUser }) => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, logout",
+            scrollbarPadding: false
         }).then((result) => {
             if (result.isConfirmed) {
                 localStorage.removeItem("patientToken");
@@ -157,7 +158,6 @@ const PatientNavbar = ({ user, setUser }) => {
                     </Navbar.Brand>
 
                     <Nav className="ms-auto align-items-center gap-3">
-                        <FaBell size={20} role="button" />
 
                         <Dropdown align="end">
                             <Dropdown.Toggle variant="light" className="d-flex align-items-center border-0 bg-transparent">
@@ -195,7 +195,7 @@ const PatientNavbar = ({ user, setUser }) => {
                 <Form onSubmit={handleSubmit}>
                     <Modal.Body>
                         <Form.Group className="mb-3">
-                            <Form.Label>Name:</Form.Label>
+                            <Form.Label>Name :</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="name"
@@ -207,7 +207,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Email:</Form.Label>
+                            <Form.Label>Email :</Form.Label>
                             <Form.Control
                                 type="email"
                                 name="email"
@@ -219,7 +219,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Phone:</Form.Label>
+                            <Form.Label>Phone :</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="phone"
@@ -231,7 +231,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Gender:</Form.Label>
+                            <Form.Label>Gender :</Form.Label>
                             <Form.Select
                                 name="gender"
                                 value={formData.gender}
@@ -247,7 +247,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Date of Birth</Form.Label>
+                            <Form.Label>Date of Birth :</Form.Label>
                             <Form.Control
                                 type="date"
                                 name="dob"
@@ -263,6 +263,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         <Button variant="secondary" onClick={() => setShowEditModal(false)}>
                             Cancel
                         </Button>
+
                         <Button variant="primary" type="submit" >
                             Save Changes
                         </Button>
@@ -283,7 +284,7 @@ const PatientNavbar = ({ user, setUser }) => {
                 <Form onSubmit={handlePasswordSubmit}>
                     <Modal.Body>
                         <Form.Group>
-                            <Form.Label>Old Password:</Form.Label>
+                            <Form.Label>Old Password :</Form.Label>
                             <div className="position-relative" style={{ minHeight: "58px" }}>
                                 <Form.Control
                                     type={showPassword ? "text" : "password"}
@@ -309,7 +310,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>New Password:</Form.Label>
+                            <Form.Label>New Password :</Form.Label>
                             <div className="position-relative" style={{ minHeight: "58px" }}>
                                 <Form.Control
                                     type={showNewPassword ? "text" : "password"}
@@ -339,7 +340,7 @@ const PatientNavbar = ({ user, setUser }) => {
                         <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>
                             Cancel
                         </Button>
-                                    
+
                         <Button variant="primary" type="submit">
                             Save Password
                         </Button>

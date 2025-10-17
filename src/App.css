@@ -3,6 +3,22 @@ html, body {
   margin: 0;
 }
 
+html {
+  overflow-y: scroll;  
+}
+
+body {
+  color: #495057;  
+}
+
+body.modal-open {
+  padding-right: 0 !important;
+}
+
+:root {
+  --bs-primary: #338dd7;
+}
+
 .layout {
   display: flex;
   flex-direction: column;

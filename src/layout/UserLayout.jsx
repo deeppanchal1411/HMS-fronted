@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getPatientProfile } from "../services/patientAPI";
 import { getDoctorProfile } from "../services/doctorAPI";
 import { getAdminProfile } from "../services/adminAPI";
-import { Container, Spinner } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import PatientNavbar from "../components/PatientNavbar";
 import DoctorNavbar from "../components/DoctorNavbar";
 import AdminNavbar from "../components/AdminNavbar";
@@ -82,9 +82,35 @@ const UserLayout = ({ userType }) => {
     return (
         <>
             <NavbarComponent user={user} setUser={setUser} />
-            <div className="d-flex">
-                <SidebarComponent />
-                <div className="flex-grow-1">
+
+            <div
+                className="d-flex"
+                style={{
+                    overflowX: "hidden", 
+                }}
+            >
+                <div
+                    style={{
+                        width: "280px",
+                        position: "sticky",
+                        top: 0,
+                        height: "100vh",
+                        overflowY: "auto",
+                        overflowX: "hidden",
+                        flexShrink: 0,
+                    }}
+                >
+                    <SidebarComponent />
+                </div>
+
+                <div
+                    className="flex-grow-1 bg-light"
+                    style={{
+                        minHeight: "100vh",
+                        minWidth: 0,
+                        overflowX: "hidden",
+                    }}
+                >
                     <Outlet context={{ user }} />
                 </div>
             </div>

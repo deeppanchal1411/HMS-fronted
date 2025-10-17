@@ -13,6 +13,15 @@ const PatientDashboard = () => {
     const [appointments, setAppointments] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [randomTips, setRandomTips] = useState([]);
+
+    const healthTips = [
+        "🥦 Eat more fiber-rich foods to improve digestion and heart health.",
+        "🚶‍♂️ Walk at least 30 minutes a day to maintain cardiovascular health.",
+        "💧 Drink at least 8 glasses of water daily to stay hydrated.",
+        "🧘‍♀️ Practice deep breathing or meditation to reduce stress.",
+        "😴 Get at least 7–8 hours of sleep every night.",
+    ];
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -29,6 +38,11 @@ const PatientDashboard = () => {
             }
         };
         fetchDashboardData();
+    }, []);
+
+    useEffect(() => {
+        const shuffled = [...healthTips].sort(() => 0.5 - Math.random());
+        setRandomTips(shuffled.slice(0, 3));
     }, []);
 
     if (loading) {
@@ -54,7 +68,7 @@ const PatientDashboard = () => {
 
                     <Col md={5}>
                         <Card className="p-3 shadow-sm rounded-4 mb-4">
-                            <h5 className="mb-3"><FaUser className="me-2 text-primary" />user Profile</h5><hr className="mt-1 mb-2" />
+                            <h5 className="mb-3"><FaUser className="me-2 text-primary" />User Profile</h5><hr className="mt-1 mb-2" />
                             <p><strong><FaUser className="me-2" />Name:</strong> {user?.name} </p>
                             <p><strong><FaEnvelope className="me-2" />Email:</strong> {user?.email} </p>
                             <p><strong><FaPhoneAlt className="me-2" />phone:</strong> {user?.phone} </p>
@@ -108,6 +122,40 @@ const PatientDashboard = () => {
                                     </Button>
                                 </>
                             )}
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col md={6}>
+                        <Card className="p-3 shadow-sm rounded-4 mb-4">
+                            <h5 className="mb-3 text-warning"><FaCalendarAlt className="me-2" />Reminders</h5>
+                            <hr className="mt-1 mb-3" />
+                            <ul className="list-unstyled mb-0">
+                                <li className="mb-3">
+                                    🩺 <strong>Appointment with Dr. {appointments?.[0]?.doctorName || "____"}</strong> on <strong>{appointments?.[0] ? new Date(appointments[0].date).toLocaleDateString('en-GB') : "--"}</strong> at <strong>{appointments?.[0]?.time || "--"}</strong>.
+                                </li>
+
+                                <li className="mb-3">
+                                    💊 <strong>Medication Refill:</strong> Remember to refill your blood pressure medicine this week.
+                                </li>
+
+                                <li className="mb-3">
+                                    🔁 <strong>Health Checkup:</strong> It's time for your annual health screening.
+                                </li>
+                            </ul>
+                        </Card>
+                    </Col>
+
+                    <Col md={6}>
+                        <Card className="p-3 shadow-sm rounded-4 mb-4 bg-light">
+                            <h5 className="mb-3 text-success"><FaUser className="me-2" />Health Tips</h5>
+                            <hr className="mt-1 mb-3" />
+                            <ul className="list-unstyled mb-0">
+                                {randomTips.map((tip, index) => (
+                                    <li key={index} className="mb-3">{tip}</li>
+                                ))}
+                            </ul>
                         </Card>
                     </Col>
                 </Row>

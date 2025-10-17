@@ -4,8 +4,11 @@ import { cancelAppointment, getPatientAppointments } from "../../services/patien
 import Swal from "sweetalert2";
 import { getStatusBadgeVariant } from "../../utils/appointmentUtils";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const PatientAppointments = () => {
+    const navigate = useNavigate();
+
     const [appointments, setAppointments] = useState([]);
     const [filters, setFilters] = useState({
         status: "",
@@ -14,6 +17,7 @@ const PatientAppointments = () => {
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isCancelling, setIsCancelling] = useState(false);
 
     const fetchAppointments = async () => {
         try {
@@ -50,12 +54,15 @@ const PatientAppointments = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
+                    setIsCancelling(true);
                     await cancelAppointment(selectedAppointment._id);
                     Swal.fire("Cancelled!", "Your appointment has been cancelled.", "success");
                     setShowModal(false);
                     fetchAppointments();
                 } catch (error) {
                     Swal.fire("Error!", "Failed to cancel the appointment.", "error");
+                } finally {
+                    setIsCancelling(false);
                 }
             }
         });
@@ -117,7 +124,14 @@ const PatientAppointments = () => {
                         </Col>
                     ))
                 ) : (
-                    <p>No appointments found.</p>
+                    <Col className="text-center mt-4">
+                        <p className="text-muted">📅 No appointments match your filter.</p>
+
+                        <Button variant="primary" onClick={() => navigate('/patient/book-appointment')}>
+                            Book New Appointment
+                        </Button>
+                    </Col>
+
                 )}
             </Row>
 
@@ -143,10 +157,12 @@ const PatientAppointments = () => {
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
                         Close
                     </Button>
+
                     {selectedAppointment?.status === "pending" && (
-                        <Button variant="danger" onClick={handleCancel}>
-                            Cancel Appointment
+                        <Button variant="danger" onClick={handleCancel} disabled={isCancelling}>
+                            {isCancelling ? <Spinner size="sm" animation="border" /> : "Cancel Appointment"}
                         </Button>
+
                     )}
                 </Modal.Footer>
             </Modal>

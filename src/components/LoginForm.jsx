@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Alert, Button, Card, Col, Container, Row, Form } from "react-bootstrap";
+import { Alert, Button, Card, Col, Container, Row, Form, InputGroup } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/api.js";
+import { FaLock, FaPhone } from "react-icons/fa6";
 
 const LoginForm = ({ userType, apiEndpoint, tokenKey, redirectPath }) => {
     const navigate = useNavigate();
@@ -49,7 +50,7 @@ const LoginForm = ({ userType, apiEndpoint, tokenKey, redirectPath }) => {
                 else if (status === 401) toast.error(message || "Invalid password");
                 else toast.error("Something went wrong. Please try again.");
                 console.error(err);
-                
+
             } finally {
                 setLoading(false);
             }
@@ -57,69 +58,82 @@ const LoginForm = ({ userType, apiEndpoint, tokenKey, redirectPath }) => {
     };
 
     return (
-        <Container className="mt-5">
-            <Row className="justify-content-center">
-                <Col md={5}>
-                    <Card className="p-4 shadow-sm rounded-4">
-                        <h3 className="text-center mb-4 fw-bold">{userType} Login</h3>
+        <div
+            style={{
+                minHeight: "100vh",
+                background: "linear-gradient(135deg, #0d6efd, #0dcaf0)",
+                display: "flex",
+                alignItems: "center",
+            }}
+        >
+            <Container>
+                <Row className="justify-content-center">
+                    <Col md={5}>
+                        <Card className="p-4 shadow-lg rounded-4 border-0">
+                            <h2 className="text-center fw-bold mb-3 text-primary">{userType} Login</h2>
+                            <p className="text-center text-muted mb-4">Welcome back! Please login to continue.</p>
 
-                        {loggedIn && <Alert variant="success">Logged in successfully!</Alert>}
+                            {loggedIn && <Alert variant="success">Logged in successfully!</Alert>}
 
-                        <Form onSubmit={handleSubmit} noValidate>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Phone Number:</Form.Label>
-                                <Form.Control
-                                    type="tel"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    isInvalid={!!errors.phone}
-                                    placeholder="Enter phone number"
-                                />
-                                <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
-                            </Form.Group>
+                            <Form onSubmit={handleSubmit} noValidate>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Phone Number :</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Text><FaPhone /></InputGroup.Text>
+                                        <Form.Control
+                                            type="tel"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.phone}
+                                            placeholder="Enter phone number"
+                                        />
+                                        <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
+                                    </InputGroup>
+                                </Form.Group>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label>Password:</Form.Label>
-                                <div className="position-relative" style={{ minHeight: "58px" }}>
-                                    <Form.Control
-                                        type={showPassword ? "text" : "password"}
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        isInvalid={!!errors.password}
-                                        placeholder="Enter password"
-                                    />
-                                    <span
-                                        role="button"
-                                        tabIndex={0}
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter" || e.key === " ") setShowPassword(!showPassword);
-                                        }}
-                                        className="position-absolute"
-                                        style={{
-                                            cursor: "pointer",
-                                            top: "30%",
-                                            right: "12px",
-                                            transform: "translateY(-50%)",
-                                        }}
-                                    >
-                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                    </span>
-                                    <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Password :</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Text><FaLock /></InputGroup.Text>
+                                        <Form.Control
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.password}
+                                            placeholder="Enter password"
+                                        />
+                                        <Button
+                                            variant="outline-secondary"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </Button>
+                                        <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                                    </InputGroup>
+                                </Form.Group>
+
+                                <Button
+                                    type="submit"
+                                    className="w-100 fw-bold"
+                                    variant="primary"
+                                    disabled={loading}
+                                >
+                                    {loading ? "Logging in..." : "Login"}
+                                </Button>
+
+                                <div className="text-center mt-3">
+                                    <span className="text-muted">Don’t have an account? </span>
+                                    <a href="#" className="fw-semibold text-primary text-decoration-none">Register</a>
                                 </div>
-                            </Form.Group>
-
-                            <Button type="submit" className="w-100" variant="primary" disabled={loading}>
-                                {loading ? "Logging in..." : "Login"}
-                            </Button>
-                        </Form>
-                    </Card>
-                </Col>
-            </Row>
+                            </Form>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
             <ToastContainer position="top-center" autoClose={3000} />
-        </Container>
+        </div>
     );
 };
 

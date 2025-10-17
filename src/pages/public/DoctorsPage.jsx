@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { API_BASE_URL } from "../../utils/api.js";
+import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
 const DoctorsPage = () => {
     const [doctors, setDoctors] = useState([]);
@@ -10,7 +11,7 @@ const DoctorsPage = () => {
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
-                const res = await axios.get(`${API_BASE_URL}/api/doctors`);
+                const res = await axios.get(`${API_BASE_URL}/doctors`);
                 setDoctors(res.data);
             } catch (err) {
                 console.error("Error fetching doctors:", err);
@@ -23,17 +24,13 @@ const DoctorsPage = () => {
     }, []);
 
     if (loading) {
-        return (
-            <div className="text-center my-5">
-                <Spinner animation="border" variant="primary" />
-            </div>
-        );
-    }
+        return <LoadingSpinner fullscreen message="Loading doctors..." variant="primary" size="lg" />;
+    };
 
     return (
         <Container className="my-5">
-            <h2 className="text-center mb-4 fw-bold">Meet Our Expert Doctors</h2>
-            <p className="text-center text-muted mb-5">
+            <h2 className="text-center mb-4 fw-bold" style={{ color: "#338dd7" }}>Meet Our Expert Doctors</h2>
+            <p className="text-center text-muted mb-5 fs-5">
                 Our team of experienced and specialized doctors is here to provide the best healthcare for you.
             </p>
             
@@ -49,10 +46,10 @@ const DoctorsPage = () => {
                                         alt={doc.name}
                                     />
                                 )}
-                                <Card.Body>
-                                    <Card.Title className="fw-bold">{doc.name}</Card.Title>
+                                <Card.Body className="text-center">
+                                    <Card.Title className="fw-bold" style={{ color: "#338dd7" }}>{doc.name}</Card.Title>
                                     
-                                    <Card.Text className="text-muted mb-2">
+                                    <Card.Text className="text-muted">
                                         <strong>Specialization:</strong> {doc.specialization} <br />
                                         <strong>Experience:</strong> {doc.experience} years <br />
                                         <strong>Gender:</strong> {doc.gender}
