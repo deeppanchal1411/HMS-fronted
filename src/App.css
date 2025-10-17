@@ -1,0 +1,101 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.dropdown-menu .dropdown-item.dropdown-hover:hover {
+  background-color: #338dd7ff !important;
+  color: white !important;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.reason-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  background: white;
+}
+
+.reason-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+  color: #efe1a8;
+}
+
+.doctor-card {
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.doctor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.doctor-card img {
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.modal-backdrop {
+    backdrop-filter: blur(7px);
+    background-color: rgba(51, 141, 215, 0.2) !important;
+}
+
+.container {
+    max-width: 800px;
+}
+
+p.text-muted {
+    font-size: 1rem;
+}
+
+.accordion-button {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #338dd7;
+    color: white;
+}
+
+.accordion-body {
+    font-size: 0.95rem;
+    color: #555;
+}

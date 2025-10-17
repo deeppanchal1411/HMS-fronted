@@ -1,0 +1,151 @@
+import axios from "axios";
+import { useState } from "react";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import { API_BASE_URL } from "../../utils/api.js";
+
+const ContactPage = () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const validate = () => {
+        const newErrors = {};
+
+        if (!formData.name.trim()) newErrors.name = "Name is required";
+        if (!formData.email) {
+            newErrors.email = "Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = "Enter a valid email address";
+        }
+        if (!formData.message.trim()) {
+            newErrors.message = "Message is required";
+        } else if (formData.message.length < 10) {
+            newErrors.message = "Message must be at least 10 characters";
+        }
+
+        return newErrors;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formErrors = validate();
+        setErrors(formErrors);
+
+        if (Object.keys(formErrors).length === 0) {
+            try {
+                const res = await axios.post(`${API_BASE_URL}/api/contact`, formData);
+                toast.success(res.data.message);
+                setFormData({ name: "", email: "", message: "" });
+
+            } catch (err) {
+                toast.error(err.response?.data?.error || "Something went wrong");
+            }
+        } else {
+            console.error("Enter right information");
+        }
+    };
+
+    return (
+        <Container className="my-5">
+            <h2 className="text-center mb-4 fw-bold" style={{ color: "#0d6efd" }}>Contact Us</h2>
+            
+            <Row className="g-4">
+                <Col md={6}>
+                    <Card className="shadow-sm p-4 border-0">
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-semibold">Name:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    isInvalid={!!errors.name}
+                                    placeholder="Enter your name"
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-semibold">Email:</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    isInvalid={!!errors.email}
+                                    placeholder="Enter your email"
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-semibold">Message:</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={4}
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    isInvalid={!!errors.message}
+                                    placeholder="Type your message"
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Button variant="primary" type="submit" className="w-100 fw-bold">
+                                Send Message
+                            </Button>
+                        </Form>
+                    </Card>
+                </Col>
+
+                <Col md={6}>
+                    <Card className="shadow-sm p-4 border-0 mb-4">
+                        <h5 className="fw-bold text-primary">
+                            <FaMapMarkerAlt className="me-1" /> Address
+                        </h5>
+                        <p className="text-muted">123 Hospital Road, Ahmedabad, Gujarat</p>
+
+                        <h5 className="fw-bold text-primary">
+                            <FaPhoneAlt className="me-1" /> Phone
+                        </h5>
+                        <p className="text-muted">+91 9510608821</p>
+
+                        <h5 className="fw-bold text-primary">
+                            <FaEnvelope className="me-1" /> Email
+                        </h5>
+                        <p className="text-muted">panchaldeep@gmail.com</p>
+                    </Card>
+
+                    <Card className="shadow-sm border-0">
+                        <div style={{ width: "100%", minHeight: "200px" }}>
+                            <iframe
+                                title="Hospital Location"
+                                src="https://www.google.com/maps/embed?pb=!1m18..."
+                                width="100%"
+                                height="200"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                            ></iframe>
+                        </div>
+                    </Card>
+                </Col>
+            </Row>
+            <ToastContainer position="top-center" autoClose={3000} />
+        </Container>
+    );
+};
+
+export default ContactPage;
