@@ -1,21 +1,40 @@
 import { useState } from "react";
 import { Container, Card, Form, Button, Accordion } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
+import { contactSupport } from "../../services/patientAPI";
 
 const HelpSupport = () => {
     const [formData, setFormData] = useState({
         subject: "",
         message: ""
     });
+    const [submitting, setSubmitting] = useState(false);
 
     const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        toast.success("Your query has been submitted!");
-        setFormData({ subject: "", message: "" });
+        if (formData.subject.trim().length < 3 || formData.message.trim().length < 10) {
+            toast.error("Please provide more detailed information.");
+            return;
+        }
+
+        setSubmitting(true);
+
+        try {
+            await contactSupport(formData);
+            toast.success("Your query has been submitted!");
+            setFormData({ subject: "", message: "" });
+
+        } catch (err) {
+            const message = err.response?.data?.err || "Something went wrong. Please try again.";
+            toast.error(message);
+
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -30,12 +49,14 @@ const HelpSupport = () => {
                         You can book an appointment by navigating to the "Book Appointment" section from the sidebar and filling in the required details.
                     </Accordion.Body>
                 </Accordion.Item>
+
                 <Accordion.Item eventKey="1">
                     <Accordion.Header>How do I reset my password?</Accordion.Header>
                     <Accordion.Body>
                         Go to "Change Password" from the user menu in the navbar and follow the instructions to reset your password securely.
                     </Accordion.Body>
                 </Accordion.Item>
+
                 <Accordion.Item eventKey="2">
                     <Accordion.Header>Who do I contact for medical emergencies?</Accordion.Header>
                     <Accordion.Body>
@@ -48,7 +69,7 @@ const HelpSupport = () => {
                 <h4 className="mb-3 text-primary">Contact Support</h4>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Subject:</Form.Label>
+                        <Form.Label>Subject :</Form.Label>
                         <Form.Control
                             type="text"
                             name="subject"
@@ -59,7 +80,7 @@ const HelpSupport = () => {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Message:</Form.Label>
+                        <Form.Label>Message :</Form.Label>
                         <Form.Control
                             as="textarea"
                             rows={5}
@@ -70,8 +91,11 @@ const HelpSupport = () => {
                             required
                         />
                     </Form.Group>
-                    <div className="text-center">
-                        <Button variant="primary" type="submit" className="px-5">Submit</Button>
+
+                    <div className="d-grid">
+                        <Button variant="primary" type="submit" className="px-5" disabled={submitting}>
+                            {submitting ? "Submitting..." : "Submit"}
+                        </Button>
                     </div>
                 </Form>
             </Card>

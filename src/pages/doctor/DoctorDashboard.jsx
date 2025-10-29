@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getDoctorDashboard } from "../../services/doctorAPI";
-import { Card, Col, Container, Row, Spinner, Table } from "react-bootstrap";
+import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { FaCalendarAlt, FaCalendarDay, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from "react-icons/fa";
 
 const DoctorDashboard = () => {
     const [stats, setStats] = useState(null);
@@ -32,45 +33,60 @@ const DoctorDashboard = () => {
 
             <Row className="mb-4">
                 <Col md={3}>
-                    <Card className="text-center shadow-sm">
+                    <Card className="text-center shadow-sm bg-primary text-white">
                         <Card.Body>
-                            <Card.Title>Total Appointments</Card.Title>
+                            <Card.Title>
+                                <FaCalendarAlt className="me-2" />
+                                Total Appointments
+                            </Card.Title>
                             <h4>{stats?.totalAppointments || 0}</h4>
                         </Card.Body>
                     </Card>
                 </Col>
 
                 <Col md={3}>
-                    <Card className="text-center shadow-sm">
+                    <Card className="text-center shadow-sm bg-info text-white">
                         <Card.Body>
-                            <Card.Title>Today's Appointments</Card.Title>
+                            <Card.Title>
+                                <FaCalendarDay className="me-2" />
+                                Today's Appointments
+                            </Card.Title>
                             <h4>{stats?.todayAppointments || 0}</h4>
                         </Card.Body>
                     </Card>
                 </Col>
 
                 <Col md={3}>
-                    <Card className="text-center shadow-sm">
+                    <Card className="text-center shadow-sm bg-warning text-dark">
                         <Card.Body>
-                            <Card.Title>Pending</Card.Title>
+                            <Card.Title>
+                                <FaHourglassHalf className="me-2" />
+                                Pending
+                            </Card.Title>
                             <h4>{stats?.pendingAppointments || 0}</h4>
                         </Card.Body>
                     </Card>
                 </Col>
 
                 <Col md={3}>
-                    <Card className="text-center shadow-sm">
+                    <Card className="text-center shadow-sm bg-success text-white">
                         <Card.Body>
-                            <Card.Title>Completed</Card.Title>
+                            <Card.Title>
+                                <FaCheckCircle className="me-2" />
+                                Completed
+                            </Card.Title>
                             <h4>{stats?.completedAppointments || 0}</h4>
                         </Card.Body>
                     </Card>
                 </Col>
 
                 <Col md={3} className="mt-3">
-                    <Card className="text-center shadow-sm">
+                    <Card className="text-center shadow-sm bg-danger text-white">
                         <Card.Body>
-                            <Card.Title>Cancelled</Card.Title>
+                            <Card.Title>
+                                <FaTimesCircle className="me-2" />
+                                Cancelled
+                            </Card.Title>
                             <h4>{stats?.cancelledAppointments || 0}</h4>
                         </Card.Body>
                     </Card>

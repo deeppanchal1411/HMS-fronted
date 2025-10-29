@@ -1,6 +1,6 @@
 import { ListGroup } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
-import { FaCalendarCheck, FaUserInjured } from "react-icons/fa6";
+import { FaCalendarCheck, FaClock, FaUserInjured } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const DoctorSidebar = () => {
@@ -33,6 +33,14 @@ const DoctorSidebar = () => {
                     onClick={() => navigate("/doctor/patients")}
                 >
                     <FaUserInjured className="me-2" /> Patients
+                </ListGroup.Item>
+
+                <ListGroup.Item
+                    action
+                    active={location.pathname === "/doctor/availability"}
+                    onClick={() => navigate("/doctor/availability")}
+                >
+                    <FaClock className="me-2" /> Availability
                 </ListGroup.Item>
             </ListGroup>
         </div>

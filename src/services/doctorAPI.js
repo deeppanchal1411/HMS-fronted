@@ -61,3 +61,15 @@ export const getDoctorPatients = async () => {
   const { data } = await API.get("/doctor/patients", getConfig());
   return data;
 };
+
+
+export const getDoctorAvailability = async () => {
+  const { data } = await API.get("/doctor/availability", getConfig());
+  return data.availability;
+};
+
+
+export const updateDoctorAvailability = async (availability) => {
+  const { data } = await API.put("/doctor/availability", { availability }, getConfig());
+  return data;
+};

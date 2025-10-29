@@ -162,7 +162,6 @@ const PatientAppointments = () => {
                         <Button variant="danger" onClick={handleCancel} disabled={isCancelling}>
                             {isCancelling ? <Spinner size="sm" animation="border" /> : "Cancel Appointment"}
                         </Button>
-
                     )}
                 </Modal.Footer>
             </Modal>

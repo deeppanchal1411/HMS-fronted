@@ -22,6 +22,7 @@ import DoctorDashboard from "./pages/doctor/DoctorDashboard";
 import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 import DoctorPatients from "./pages/doctor/DoctorPatients";
 import UserLayout from "./layout/UserLayout";
+import DoctorAvailability from "./pages/doctor/DoctorAvailability";
 
 function App() {
     return (
@@ -63,6 +64,7 @@ function App() {
                     <Route path="dashboard" element={<DoctorDashboard />} />
                     <Route path="appointments" element={<DoctorAppointments />} />
                     <Route path="patients" element={<DoctorPatients />} />
+                    <Route path="availability" element={<DoctorAvailability />} />
                 </Route> 
             </Route>
 

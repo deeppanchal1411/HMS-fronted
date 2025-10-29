@@ -2,20 +2,21 @@ import axios from "axios";
 import { API_BASE_URL } from "../utils/api.js";
 
 const API = axios.create({
-    baseURL: API_BASE_URL
+  baseURL: API_BASE_URL
 });
 
 const getToken = () => localStorage.getItem("patientToken");
 
 const getConfig = () => ({
-    headers: {
-        Authorization: `Bearer ${getToken()}`
-    }
+  headers: {
+    Authorization: `Bearer ${getToken()}`
+  }
 });
 
+
 export const getPatientProfile = async () => {
-   const { data } = await API.get("/patients/profile", getConfig());
-   return data;
+  const { data } = await API.get("/patients/profile", getConfig());
+  return data;
 };
 
 
@@ -40,7 +41,7 @@ export const getPatientAppointments = async (filters = {}) => {
 
 
 export const bookNewAppointment = async (appointmentData) => {
-  const { data } = await API.post("/appointments", appointmentData, getConfig());
+  const { data } = await API.post("/appointments/", appointmentData, getConfig());
   return data;
 };
 
@@ -53,5 +54,20 @@ export const getDoctorsList = async () => {
 
 export const cancelAppointment = async (appointmentId) => {
   const { data } = await API.put(`/appointments/cancel/${appointmentId}`, {}, getConfig());
+  return data;
+};
+
+
+export const getAvailableSlots = async (doctorId, date) => {
+  const { data } = await API.get("/appointments/available-slots", {
+    params: { doctorId, date },
+    ...getConfig()
+  });
+  return data;
+};
+
+
+export const contactSupport = async (formData) => {
+  const { data } = await API.post("/contact", formData, getConfig());
   return data;
 };
