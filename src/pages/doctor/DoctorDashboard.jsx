@@ -29,7 +29,7 @@ const DoctorDashboard = () => {
 
     return (
         <Container fluid className="mt-4 doctor-content">
-            <h3 className="mb-4">Doctor Dashboard</h3>
+            <h2 className="mb-4">Doctor Dashboard</h2>
 
             <Row className="mb-4">
                 <Col md={3}>

@@ -1,5 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import { FaCalendarAlt, FaFileMedical, FaHome, FaUserMd, FaUsers, FaQuestionCircle } from "react-icons/fa";
+import { FaCalendarAlt, FaFileMedical, FaHome, FaUserMd, FaUsers, FaQuestionCircle, FaEnvelope } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const AdminSidebar = () => {
@@ -42,22 +42,21 @@ const AdminSidebar = () => {
                     <FaCalendarAlt className="me-2" /> Appointments
                 </ListGroup.Item>
 
-                {/* <ListGroup.Item
+                <ListGroup.Item
                     action
-                    active={location.pathname === "/admin/records"}
-                    onClick={() => navigate("/admin/records")}
+                    active={location.pathname === "/admin/contacts/public"}
+                    onClick={() => navigate("/admin/contacts/public")}
                 >
-                    <FaFileMedical className="me-2" /> Medical Records
+                    <FaEnvelope className="me-2" /> Public Contacts
                 </ListGroup.Item>
 
                 <ListGroup.Item
                     action
-                    active={location.pathname === "/admin/help"}
-                    onClick={() => navigate("/admin/help")}
+                    active={location.pathname === "/admin/contacts/patient"}
+                    onClick={() => navigate("/admin/contacts/patient")}
                 >
-                    <FaQuestionCircle className="me-2" /> Help & Support
-                </ListGroup.Item> */}
-
+                    <FaFileMedical className="me-2" /> Patient Contacts
+                </ListGroup.Item>
             </ListGroup>
         </div>
     );

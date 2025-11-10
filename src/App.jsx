@@ -23,6 +23,9 @@ import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 import DoctorPatients from "./pages/doctor/DoctorPatients";
 import UserLayout from "./layout/UserLayout";
 import DoctorAvailability from "./pages/doctor/DoctorAvailability";
+import AdminPublicContacts from "./pages/admin/AdminPublicContacts";
+import AdminPatientContacts from "./pages/admin/AdminPatientContacts";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
     return (
@@ -74,8 +77,12 @@ function App() {
                     <Route path="doctors" element={<ManageDoctors />} />
                     <Route path="patients" element={<ManagePatients />} />
                     <Route path="appointments" element={<Appointments />} />
+                    <Route path="contacts/public" element={<AdminPublicContacts />} />
+                    <Route path="contacts/patient" element={<AdminPatientContacts />} />
                 </Route>
             </Route>
+
+            <Route path="*" element={<ErrorPage />} />
         </Routes>
     );
 };

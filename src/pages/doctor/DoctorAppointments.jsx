@@ -35,7 +35,13 @@ const DoctorAppointments = () => {
         try {
             const data = await updateDoctorAppointmentStatus(id, status);
             toast.success(data.message);
-            fetchAppointments();
+
+            setAppointments((prev) =>
+                prev.map((appt) =>
+                    appt._id === id ? { ...appt, status } : appt
+                )
+            );
+
         } catch (err) {
             toast.error("Failed to update status");
         }
@@ -142,9 +148,10 @@ const DoctorAppointments = () => {
                                 <td>
                                     <Form.Select
                                         value={appt.status}
-                                        onChange={(e) =>
-                                            handleStatusChange(appt._id, e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            handleStatusChange(appt._id, e.target.value);
+                                        }}
                                         size="sm"
                                     >
                                         <option value="pending">Pending</option>

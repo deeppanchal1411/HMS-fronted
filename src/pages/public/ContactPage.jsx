@@ -44,7 +44,7 @@ const ContactPage = () => {
         if (Object.keys(formErrors).length === 0) {
             try {
                 setLoading(true);
-                const res = await axios.post(`${API_BASE_URL}/contact`, formData);
+                const res = await axios.post(`${API_BASE_URL}/public/contact`, formData);
                 toast.success(res.data.message);
                 setFormData({ name: "", email: "", message: "" });
 
@@ -134,7 +134,7 @@ const ContactPage = () => {
                         <div style={{ width: "100%", minHeight: "200px" }}>
                             <iframe
                                 title="Hospital Location"
-                                src="https://www.google.com/maps/embed?pb=!1m18..."
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.1864606090935!2d71.18090807541091!3d23.016924979177737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395a2b09f95efab3%3A0x744f0761c19cef09!2sMadhuram%20Hospital!5e0!3m2!1sen!2sin!4v1762765046688!5m2!1sen!2sin"
                                 width="100%"
                                 height="200"
                                 style={{ border: 0 }}

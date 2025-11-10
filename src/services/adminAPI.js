@@ -81,3 +81,27 @@ export const updateAppointmentStatus = async (appointmentId, status) => {
     );
     return data;
 };
+
+
+export const getAllPublicContacts = async () => {
+    const { data } = await API.get("/admin/contacts/public", getConfig());
+    return data;
+};
+
+
+export const deletePublicContact = async (id) => {
+    const { data } = await API.delete(`/admin/contacts/public/${id}`, getConfig());
+    return data;
+};
+
+
+export const getAllPatientContacts = async () => {
+    const { data } = await API.get("/admin/contacts/patient", getConfig());
+    return data;
+};
+
+
+export const deletePatientContact = async (id) => {
+    const { data } = await API.delete(`/admin/contacts/patient/${id}`, getConfig());
+    return data;
+};

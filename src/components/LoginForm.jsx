@@ -124,8 +124,12 @@ const LoginForm = ({ userType, apiEndpoint, tokenKey, redirectPath }) => {
                                 </Button>
 
                                 <div className="text-center mt-3">
-                                    <span className="text-muted">Don’t have an account? </span>
-                                    <a href="#" className="fw-semibold text-primary text-decoration-none">Register</a>
+                                    {userType.toLowerCase() === "patient" && (
+                                        <>
+                                            <span className="text-muted">Don’t have an account? </span>
+                                            <a href="/patient/register" className="fw-semibold text-primary text-decoration-none">Register</a>
+                                        </>
+                                    )}
                                 </div>
                             </Form>
                         </Card>
