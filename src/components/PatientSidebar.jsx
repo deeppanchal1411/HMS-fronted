@@ -28,14 +28,6 @@ const PatientSidebar = () => {
 
                 <ListGroup.Item 
                     action 
-                    active={location.pathname === "/patient/records"}
-                    onClick={() => navigate("/patient/records")}
-                >
-                    <FaFileMedical className="me-2" /> Medical Records
-                </ListGroup.Item>
-
-                <ListGroup.Item 
-                    action 
                     active={location.pathname === "/patient/book-appointment"}
                     onClick={() => navigate("/patient/book-appointment")}
                 >
