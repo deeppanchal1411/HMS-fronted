@@ -117,7 +117,7 @@ const ContactPage = () => {
                         <h5 className="fw-bold text-primary">
                             <FaMapMarkerAlt className="me-1" /> Address
                         </h5>
-                        <p className="text-muted">123 Hospital Road, Ahmedabad, Gujarat</p>
+                        <p className="text-muted">Madhuram Hospital Railway Station Road, Halvad, Gujarat, India</p>
 
                         <h5 className="fw-bold text-primary">
                             <FaPhoneAlt className="me-1" /> Phone

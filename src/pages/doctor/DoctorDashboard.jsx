@@ -110,7 +110,7 @@ const DoctorDashboard = () => {
                                 {stats.recentAppointments.map((appt) => (
                                     <tr key={appt._id}>
                                         <td>{appt.patient?.name} ({appt.patient?.phone})</td>
-                                        <td>{new Date(appt.dateTime).toLocaleString()}</td>
+                                        <td>{new Date(appt.date).toLocaleString()}</td>
                                         <td>{appt.status}</td>
                                     </tr>
                                 ))}

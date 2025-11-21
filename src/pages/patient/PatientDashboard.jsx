@@ -109,6 +109,7 @@ const PatientDashboard = () => {
                                         <Button variant="outline-primary" onClick={() => navigate('/patient/book-appointment')}>
                                             Book Appointment
                                         </Button>
+                                        
                                         <Button variant="secondary" onClick={() => navigate('/patient/appointments')}>
                                             View All
                                         </Button>

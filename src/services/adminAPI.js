@@ -59,7 +59,7 @@ export const getAllPatients = async (params = {}) => {
 
 
 export const deletePatient = async (patientId) => {
-    const { data } = await API.delete(`/admin/patient/${patientId}`, getConfig());
+    const { data } = await API.delete(`/admin/patients/${patientId}`, getConfig());
     return data;
 };
 

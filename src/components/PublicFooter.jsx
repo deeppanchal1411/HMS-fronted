@@ -27,7 +27,7 @@ const PublicFooter = () => {
 
                     <Col md={4} sm={12}>
                         <h5 className="fw-bold">Contact Us</h5>
-                        <p><FaMapMarkerAlt className="me-1" /> 123 Hospital Road, Gujarat, India </p>
+                        <p><FaMapMarkerAlt className="me-1" /> Madhuram Hospital Railway Station Road, Halvad, Gujarat, India </p>
                         <p><FaPhoneAlt className="me-1" /><a href="tel:+919510608821" className="footer-link"> +91 9510608821 </a></p>
                         <p><FaEnvelope className="me-1" /><a href="mailto:panchaldeep536@gmail.com" className="footer-link"> panchaldeep536@gmail.com </a></p>
 
